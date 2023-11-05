@@ -23,6 +23,7 @@ class JSONSaver(Vacancies, Saver):
             json.dump(self.to_list_dict(), fh, indent=4, ensure_ascii=False)
 
     def read_file(self):
+        """Чтение JSON файла"""
         with open('vacancies.json', 'r', encoding='utf-8') as file:
             self.data = json.load(file)
             return self.data
@@ -39,23 +40,23 @@ class JSONSaver(Vacancies, Saver):
         with open('vacancies.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
 
-        # Выводим список job_id для выбора пользователем
+        """Выводим список job_id для выбора пользователем"""
         for i, item in enumerate(data):
             print(f"{i + 1}. {item['job_id']}")
 
-        # Получаем от пользователя индекс словаря для удаления
+        """Получаем от пользователя индекс словаря для удаления"""
         index_to_remove = int(input("Введите номер словаря для удаления: ")) - 1
 
-        # Проверяем введенный индекс на корректность
+        """Проверяем введенный индекс на корректность"""
         if index_to_remove < 0 or index_to_remove >= len(data):
             print("Некорректный номер словаря.")
             return
 
-        # Удаляем выбранный словарь
+        """Удаляем выбранный словарь"""
         removed_dict = data.pop(index_to_remove)
         print("Удаленный словарь:")
         print(removed_dict)
 
-        # Записываем обновленные данные обратно в файл JSON
+        """Сохраняем измененный файл"""
         with open('vacancies.json', 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
