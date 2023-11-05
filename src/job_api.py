@@ -7,7 +7,6 @@ import os
 
 class JobAPI:
     """Абстрактный класс для хранения информации из API"""
-
     def __init__(self):
         pass
 

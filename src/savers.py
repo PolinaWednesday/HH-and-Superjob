@@ -29,6 +29,7 @@ class JSONSaver(Vacancies, Saver):
             return self.data
 
     def read_vacancies(self):
+        """Чтение JSON файла"""
         data = self.read_file()
         for i, item in enumerate(data):
             print(f"{i + 1}. {item['name']}")
