@@ -10,10 +10,10 @@ def user_terminal():
 
     while True:
         user_input = input(
-            f"1. Поиск вакансий по профессии\n"
+            f"1. Поиск вакансий\n"
             f"2. Вывод списка вакансий\n"
-            f"3. Удалить вакансию\n"
-            f"4. Выход\n"
+            f"3. Удалить вакансию из списка\n"
+            f"4. Завершение работы с программой\n"
             f"Ваш выбор: ")
         if user_input == '1':
             print()
@@ -30,14 +30,22 @@ def user_terminal():
             print('Найденные вакансии на сайте "SuperJob": \n')
             for vacancy in from_sj:
                 print(vacancy)
-            print('Хотите сортировать вакансии? Введите "да"')
-            ans = input()
-            if ans == 'да':
+            print('Хотите сортировать вакансии? Введите "да" или "нет"')
+            user_input = input()
+            if user_input == 'да' or user_input == 'yes':
                 from_all = JSONSaver()
                 from_all.add_vacancies(from_hh)
                 from_all.add_vacancies(from_sj)
                 from_all.sort_vacancies_by_salary()
                 from_all.save_vacancies()
+                print()
+            elif user_input == 'нет' or user_input == 'no':
+                from_all = JSONSaver()
+                from_all.add_vacancies(from_hh)
+                from_all.add_vacancies(from_sj)
+                from_all.save_vacancies()
+            else:
+                print('Некорректный ввод')
 
         elif user_input == '2':
             print()
@@ -45,15 +53,19 @@ def user_terminal():
             vacancy_reader.read_vacancies()
             print()
         elif user_input == '3':
-            print("Хотите удалить вакансию?")
-            userinput = input()
-            if userinput == 'да':
+            try:
+                print()
                 vacancy_remover = JSONSaver()
                 vacancy_remover.remove_vacancies()
-            else:
-                exit()
+            except ValueError:
+                print("Некорректный ввод")
+                print()
         elif user_input == '4':
-            print("Спасибо за использование!")
+            print("Завершение работы с программой")
+            break
+        else:
+            print("Некорректный ввод")
+            print()
 
 
 if __name__ == '__main__':
